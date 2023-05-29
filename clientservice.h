@@ -2,6 +2,9 @@
 #define CLIENTSERVICE_H
 
 #include <QObject>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QVariantMap>
 
 
 enum class MessageCode {
@@ -22,6 +25,13 @@ class ClientService : public QObject
 public:
     explicit ClientService(QObject *parent = nullptr);
     
+    QByteArray PrepareLoginRequest(const QString& login, const QString& password);
+    
+    QByteArray PrepareMessagesReceivedRequest(const QString& login);
+    
+    QByteArray PrepareMessagesSentRequest(const QString& login);
+    
+    void StartHandling(const QByteArray& data);
     
 signals:
     

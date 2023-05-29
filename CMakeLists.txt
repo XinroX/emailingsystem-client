@@ -11,11 +11,22 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(QT NAMES Qt6 Qt5 COMPONENTS Core REQUIRED)
-find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core REQUIRED)
+find_package(QT NAMES Qt6 Qt5 COMPONENTS Core Network REQUIRED)
+find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core Network REQUIRED)
+find_package(GTest CONFIG REQUIRED)
+
+set(SOURCE_FILES
+    clientservice.h clientservice.cpp
+    iclientservice.h
+    client.h client.cpp
+    )
 
 add_executable(emailingsystem-client
-  main.cpp
-  clientservice.h clientservice.cpp
-)
-target_link_libraries(emailingsystem-client Qt${QT_VERSION_MAJOR}::Core)
+    main.cpp
+    ${SOURCE_FILES}
+    
+    )
+
+#add_executable(testClient ${SOURCE_FILES}  tests.h tests.cpp)
+target_link_libraries(emailingsystem-client Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Network)
+#target_link_libraries(testClient Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Network)
